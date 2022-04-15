@@ -24,7 +24,24 @@ function validateProject(req, res, next) {
     next()
 }
 
+function validateProjectUpdate(req, res, next) {
+    if (typeof req.body.name !== 'string' || req.body.name.trim() === '') {
+        res.status(400).json({ message: "name is required"})
+        return
+    }
+    if (typeof req.body.description !== 'string' || req.body.description.trim() === '') {
+        res.status(400).json({ message: "description is required"})
+        return
+    }
+    if (typeof req.body.completed !== 'boolean' ) {
+        res.status(400).json({ message: "completed is required"})
+        return
+    }
+    next()
+}
+
 module.exports = {
     validateProjectId,
-    validateProject
+    validateProject,
+    validateProjectUpdate
 }
