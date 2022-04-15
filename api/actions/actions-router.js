@@ -3,7 +3,7 @@ const express = require('express')
 
 const Actions = require('./actions-model')
 
-const {} = require('./actions-middlware')
+const { validateActionId } = require('./actions-middlware')
 
 const router = express.Router()
 
@@ -13,6 +13,10 @@ router.get('/', (req, res, next) => {
             res.status(200).json(projects)
         })
         .catch(error => next({ error }))
+})
+
+router.get('/:id', validateActionId, (req, res) => {
+    res.status(200).json(req.existingAction)
 })
 
 module.exports = router
